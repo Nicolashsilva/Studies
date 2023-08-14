@@ -1,0 +1,29 @@
+public class Main {
+    public static void main(String[] args) {
+        
+        Filme filme1 = new Filme("Filme 1", 120, "Livre");
+        Sala sala1 = new Sala(100);
+        Sessao sessao1 = new Sessao(filme1, sala1, 80);
+        Ingresso ingresso1 = new Ingresso("Inteiro", 20.0, sessao1);
+
+        Cinema cinema = new Cinema();
+
+        cinema.adicionarSessao(sessao1);
+        boolean vendaRealizada = cinema.realizarVenda(ingresso1);
+        if (vendaRealizada) {
+            System.out.println("Venda realizada com sucesso!");
+        } else {
+            System.out.println("Não foi possível realizar a venda.");
+        }
+
+        List<Sessao> sessoesDoDia = cinema.getSessoesDoDia();
+        List<Sessao> sessoesEmAndamento = cinema.getSessoesEmAndamento();
+        List<Sessao> sessoesPorIniciar = cinema.getSessoesPorIniciar();
+        
+      
+        System.out.println("Sessões do dia:");
+        for (Sessao sessao : sessoesDoDia) {
+            System.out.println(sessao.getFilme().getTitulo() + " - " + sessao.getSala().getCapacidade());
+        }
+    }
+}
