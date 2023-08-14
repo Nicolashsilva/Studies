@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Wise - Data Lake</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff; /* Fundo branco */
+      color: #000000; /* Letras pretas */
+    }
+    
+    header {
+      background-color: #3333cc; /* Fundo azul */
+      padding: 20px;
+      color: #ffffff;
+      text-align: center;
+    }
+    
+    h1 {
+      margin: 0;
+    }
+    
+    nav {
+      background-color: #f1f1f1;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    nav a {
+      text-decoration: none;
+      margin: 10px;
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+    }
+    
+    section {
+      padding: 20px;
+    }
+    
+    footer {
+      background-color: #333;
+      padding: 10px;
+      color: #fff;
+      text-align: center;
+    }
+    
+    /* Barra lateral deslizante */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #f1f1f1;
+      transition: left 0.3s ease-in;
+    }
+    
+    .sidebar.open {
+      left: 0;
+    }
+    
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px;
+    }
+    
+    .sidebar li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="file:///C:/Users/DELL/AppData/Local/Temp/Rar$DIa16284.17223/logo-editor.svg" alt="Data Wise Logo">
+    <h1>Data Wise</h1>
+    <p>Nós somos uma empresa de tecnologia para armazenamento de dados renomada no mercado. Surgimos em 2023 com a ideia de que as pessoas tenham mais privacidade de seus dados e garantir a segurança para todos os usuários que usam a nossa plataforma.</p>
+  </header>
+  
+  <nav>
+    <a onclick="showPage('doubts')">Dúvidas</a>
+    <a onclick="showPage('login')">Login</a>
+    <a onclick="showPage('register')">Cadastrar</a>
+    <a onclick="showPage('stored-data')">Dados Armazenados</a>
+    <a onclick="showPage('store-data')">Armazenar Dados</a>
+  </nav>
+  
+  <section id="doubts">
+    <h2>Dúvidas</h2>
+    <h3>Pergunta: Quais são os tipos de armazenamento de dados oferecidos pela sua empresa?</h3>
+    <p>Nossa empresa oferece diversos tipos de armazenamento de dados, incluindo armazenamento em nuvem, armazenamento em disco rígido externo e armazenamento em servidores dedicados.</p>
+    
+    <h3>Pergunta: Qual é a capacidade máxima de armazenamento que posso obter?</h3>
+    <p>A capacidade máxima de armazenamento varia dependendo do tipo de serviço que você escolher. Para o armazenamento em nuvem, oferecemos planos com capacidades que variam de 100 GB a vários terabytes. Para o armazenamento em disco rígido externo, temos opções de capacidade que vão desde alguns gigabytes até vários terabytes. Para o armazenamento em servidores dedicados, podemos fornecer soluções personalizadas de acordo com suas necessidades.</p>
+    
+    <h3>Pergunta: Quais são as medidas de segurança adotadas pela sua empresa para proteger meus dados?</h3>
+    <p>Levamos a segurança dos seus dados muito a sério. Utilizamos uma combinação de medidas de segurança, incluindo criptografia de dados em repouso e em trânsito, autenticação de dois fatores, firewalls, monitoramento contínuo e backups regulares. Também implementamos políticas rígidas de acesso aos dados para garantir que apenas pessoas autorizadas possam acessá-los.</p>
+    
+    <h3>Digite sua dúvida:</h3>
+    <input type="text" id="questionInput">
+    <button onclick="sendQuestion()">Enviar</button>
+  </section>
+  
+  <section id="login" style="display: none;">
+    <h2>Login</h2>
+    <input type="email" id="emailInput" placeholder="Email">
+    <input type="password" id="passwordInput" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+    <p id="loginMessage"></p>
+  </section>
+  
+  <section id="register" style="display: none;">
+    <h2>Cadastrar</h2>
+    <input type="text" id="fullnameInput" placeholder="Nome Completo">
+    <input type="date" id="birthdateInput" placeholder="Data de Nascimento">
+    <input type="email" id="registerEmailInput" placeholder="Email">
+    <input type="tel" id="phoneInput" placeholder="Celular">
+    <input type="password" id="registerPasswordInput" placeholder="Senha">
+    <button onclick="register()">Cadastrar</button>
+    <p id="registerMessage"></p>
+  </section>
+  
+  <section id="stored-data" style="display: none;">
+    <h2>Dados Armazenados</h2>
+    <!-- Aqui você pode exibir os dados armazenados pelo usuário -->
+  </section>
+  
+  <section id="store-data" style="display: none;">
+    <h2>Armazenar Dados</h2>
+    <input type="text" id="dataInput" placeholder="Digite os dados">
+    <button onclick="storeData()">Armazenar</button>
+    <p id="storeDataMessage"></p>
+  </section>
+  
+  <div class="sidebar">
+    <ul>
+      <li><a onclick="showPage('login')">Login</a></li>
+      <li><a onclick="showPage('register')">Cadastrar</a></li>
+      <li><a onclick="showPage('stored-data')">Dados Armazenados</a></li>
+      <li><a onclick="showPage('store-data')">Armazenar Dados</a></li>
+    </ul>
+  </div>
+  
+  <script>
+    function showPage(page) {
+      const sections = document.getElementsByTagName('section');
+      const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+      for (let i = 0; i < sections.length; i++) {
+        sections[i].style.display = 'none';
+      }
+
+      for (let i = 0; i < sidebarLinks.length; i++) {
+        sidebarLinks[i].classList.remove('active');
+      }
+
+      document.getElementById(page).style.display = 'block';
+      document.querySelector('.sidebar a[data-page="' + page + '"]').classList.add('active');
+    }
+    
+    function sendQuestion() {
+      const question = document.getElementById('questionInput').value;
+      // Código para enviar a pergunta por email
+      // Você pode usar a função 'sendEmail(question)' para simular o envio por email
+      sendEmail(question);
+    }
+    
+    function sendEmail(content) {
+      // Simulação do envio de email
+      console.log('Email enviado com o seguinte conteúdo: ' + content);
+    }
+    
+    function login() {
+      const email = document.getElementById('emailInput').value;
+      const password = document.getElementById('passwordInput').value;
+      // Código para autenticar o usuário
+      // Você pode usar a função 'authenticateUser(email, password)' para simular a autenticação
+      authenticateUser(email, password);
+    }
+    
+    function authenticateUser(email, password) {
+      // Simulação da autenticação
+      if (email === 'usuario@example.com' && password === '123456') {
+        document.getElementById('loginMessage').textContent = 'Login com sucesso!';
+        // Redirecionar para a página de conta do usuário
+        window.location.href = 'conta.html';
+      } else {
+        document.getElementById('loginMessage').textContent = 'Credenciais inválidas. Tente novamente.';
+      }
+    }
+    
+    function register() {
+      const fullname = document.getElementById('fullnameInput').value;
+      const birthdate = document.getElementById('birthdateInput').value;
+      const email = document.getElementById('registerEmailInput').value;
+      const phone = document.getElementById('phoneInput').value;
+      const password = document.getElementById('registerPasswordInput').value;
+      // Código para cadastrar o usuário
+      // Você pode usar a função 'registerUser(fullname, birthdate, email, phone, password)' para simular o cadastro
+      registerUser(fullname, birthdate, email, phone, password);
+    }
+    
+    function registerUser(fullname, birthdate, email, phone, password) {
+      // Simulação do cadastro
+      console.log('Usuário cadastrado com sucesso!');
+      document.getElementById('registerMessage').textContent = 'Usuário cadastrado com sucesso!';
+    }
+    
+    function storeData() {
+      const data = document.getElementById('dataInput').value;
+      // Código para armazenar os dados
+      // Você pode usar a função 'storeDataInDatabase(data)' para simular o armazenamento
+      storeDataInDatabase(data);
+    }
+    
+    function storeDataInDatabase(data) {
+      // Simulação do armazenamento
+      console.log('Dado armazenado com sucesso: ' + data);
+      document.getElementById('storeDataMessage').textContent = 'Dado armazenado com sucesso!';
+    }
+    
+    // Abre ou fecha a barra lateral
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
